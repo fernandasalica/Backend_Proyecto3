@@ -58,19 +58,19 @@ exports.loginUser = async (req, res) => {
     if (!passCheck) {
       res.status(404).json({ message: "usuario y/o contraseña incorrecto" });
     }
-    res.send("usuario logueado");
-    // const datosUsuarioParaToken = {
-    //   user: {
-    //     id: userExist.id,
-    //     username: userExist.name,
-    //     role: userExist.role,
-    //   },
-    // };
+    // res.send("usuario logueado");
+    const datosUsuarioParaToken = {
+      user: {
+        id: userExist.id,
+        username: userExist.name,
+        role: userExist.role,
+      },
+    };
 
-    // const token = jwt.sign(datosUsuarioParaToken, process.env.JWT_SECRET);
-    // userExist.token = token;
-    // await userModel.updateOne({ name }, userExist);
-    // res.status(200).json(userExist);
+    const token = jwt.sign(datosUsuarioParaToken, "comision9i");
+    userExist.token = token;
+    await UserModel.updateOne({ name }, userExist);
+    res.status(200).json(userExist);
   } catch (error) {
     console.log(error);
   }

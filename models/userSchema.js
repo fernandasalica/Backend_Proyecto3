@@ -24,10 +24,15 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     required: true,
+    default: "user",
   },
   date: {
     type: Date,
     default: Date.now,
+  },
+  token: {
+    type: String,
+    default: "",
   },
 });
 

@@ -37,9 +37,10 @@ exports.viewMovieCategory = async (req, res) => {
   res.send(movie);
 };
 
-exports.modifyOneMovie = async (req, res) => {
+exports.editOneMovie = async (req, res) => {
   const { name, category, year, directedby, actors, story, image, trailer } =
     req.body;
+  const { body } = req;
 
   if (
     name === "" &&
@@ -64,7 +65,16 @@ exports.modifyOneMovie = async (req, res) => {
   try {
     const modifyProd = await MovieModel.findOneAndUpdate(
       { _id: req.params.id },
-      req.body,
+      {
+        name: body.name,
+        category: body.category,
+        year: body.year,
+        directedby: body.directedby,
+        actors: body.actors,
+        story: body.story,
+        image: body.image,
+        trailer: body.trailer,
+      },
       { new: true }
     );
     res.send("Pelicula modificada correctamente.");
